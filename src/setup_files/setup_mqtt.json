@@ -1,0 +1,28 @@
+{
+	"jwt_config": {
+		"algorithm": "RS256",
+		"ca_certs": "certificates/private_key_provided.pem",
+		"private_key_file": "certificates/private_key_provided.pem",
+		"jwt_expires_minutes": 60
+	},
+	"cloud_destination": {
+		"cloud_region": "us-central1",
+		"device_id": "your_device",
+		"project_id": "yourproj-0815",
+		"registry_id": "your_reg_id",
+		"mqtt_bridge_hostname": "mqtt.googleapis.com",
+		"mqtt_bridge_port": 8883,
+		"keepalive": 120
+	},
+	"paramteter_settings": {
+		"puffer_lengh": 100,
+		"compression": "lzma"
+	},
+	"global_topics": {
+		"topic_event": "events",
+		"topic_state": "state"
+	}
+}
+
+
+

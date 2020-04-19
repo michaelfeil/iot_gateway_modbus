@@ -1,3 +1,13 @@
+#Customized
+
+.vs/*
+
+**/*.pem
+!**/private_key_demo.pem
+!**/roots_demo.pem
+
+#GIT Python Standart
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

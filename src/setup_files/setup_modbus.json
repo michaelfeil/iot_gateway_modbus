@@ -1,0 +1,45 @@
+{
+  "port_config": {
+    "port": "COM6",
+    "baudrate": 9600,
+    "databits": 8,
+    "parity": "N",
+    "stopbits": 1,
+    "timeout_connection": 2.5
+  },
+  "slaveconfig": {
+    "slave01": {
+      "slave_id": 2,
+      "operations": {
+        "operation01": {
+          "startadress": 6,
+          "function_code": 3,
+          "display_name": "volume-sensor",
+          "sampling_interval": 25,
+          "quantity_of_x": 3
+        },
+        "myoperation02": {
+          "startadress": 9,
+          "function_code": 3,
+          "display_name": "capacity",
+          "sampling_interval": 0.5,
+          "quantity_of_x": 1
+        }
+      }
+    },
+    "slaveanyname": {
+      "slave_id": 10,
+      "operations": {
+        "operation01": {
+          "startadress": 107,
+          "function_code": 3,
+          "display_name": "myname3-voltage",
+          "sampling_interval": 10,
+          "quantity_of_x": 1
+        }
+      }
+    }
+  }
+}
+
+
