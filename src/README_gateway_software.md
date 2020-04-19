@@ -32,6 +32,8 @@
 
 # Part 1: Overview over the Source code and Concept
 
+![alt text](https://github.com/michaelfeil/iot_gateway_modbus/tree/master/pngs/mqttclient_modbusrtu_communication_workflow.png "Python modules communication workflow")
+
 
 
 
@@ -130,6 +132,7 @@ Preconfigure the setup_mqtt.json: (This part is static, not changed with the Clo
 ```
 Details for 8.: Update setup_modbus.json from the GCP IoT Core
 
+![alt text](https://github.com/michaelfeil/iot_gateway_modbus/tree/master/pngs/deployment_instructions.png "Deployment from GCP Portal")
 
 
 # Part 3: Key Performance Characteristics:
