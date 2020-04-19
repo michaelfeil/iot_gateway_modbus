@@ -1,0 +1,53 @@
+""" instructions: copy and paste the text below the 
+in the GCP ( https://console.cloud.google.com/iot/ ) -> your registry -> your device -> Update Config
+Make sure to double check that the json is valid and correct, eventhrough it gets checked upon arrival at the IoT Device.""" 
+
+
+
+configuration_update_modbus 
+
+content_start 
+{
+  "port_config": {
+    "port": "COM6",
+    "baudrate": 9600,
+    "databits": 8,
+    "parity": "N",
+    "stopbits": 1,
+    "timeout_connection": 2.5
+  },
+  "slaveconfig": {
+    "slave01": {
+      "slave_id": 2,
+      "operations": {
+        "operation01": {
+          "startadress": 6,
+          "function_code": 3,
+          "display_name": "cloudnamed_volume-sensor",
+          "sampling_interval": 25,
+          "quantity_of_x": 3
+        },
+        "myoperation02": {
+          "startadress": 9,
+          "function_code": 3,
+          "display_name": "cloudrenamed_capacity",
+          "sampling_interval": 0.5,
+          "quantity_of_x": 1
+        }
+      }
+    },
+    "slaveanyname": {
+      "slave_id": 10,
+      "operations": {
+        "operation01": {
+          "startadress": 107,
+          "function_code": 3,
+          "display_name": "newname_myname3-voltage",
+          "sampling_interval": 99,
+          "quantity_of_x": 1
+        }
+      }
+    }
+  }
+}
+content_end
