@@ -1,6 +1,6 @@
 {
   "port_config": {
-    "port": "COM6",
+    "port": "/dev/ttyusb0",
     "baudrate": 9600,
     "databits": 8,
     "parity": "N",
@@ -41,5 +41,3 @@
     }
   }
 }
-
-

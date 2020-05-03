@@ -1,48 +1,56 @@
 # IoT Edge Gateway Software:
 
-## Scope of this solution:
-	This software is a "IoT Gateway Solution" for Modbus RTU. 
-	
-	The intitial reason for starting this solution was the need for a Gateway for Solar Microgrids.
-	Microgrids installed e.g. by NGOs in Eastern Africa require a monitoring system, to prove project success and guarantee maintaince. 
-	However energy sources occasionally in remote locations and making monitoring difficult. 
-
-	Installed on a Linux/Windows computer, e.g. a Raspberry PI and a Modbus RTU over USB, a cost-effective solution is enabled. 
-	Many existing sensors and equipment have the option to communicate over Modbus.
-
-## As provided this solution offers:
-- Cloud: Google IoT Core
-	- deploying and changing Modbus configuration from the GCP.
-	- Connection using Paho MQTT Client
-	- low data usage: compression using gzip and multiple sensor measurement at once
-
-- Modbus: Modbus RTU: RS232, RS485 over USB.
-	- read 5-10 Modbus RTU Slaves per Second
-	- schedule indivdual for every sensor
-	- handling of all modbus
-
 ## Scope of this readme:
 
 ### Part 1:
 - Overview over the Source code and Concept
-### Part 2: 
-- How to configure and use this solution
+### Part 2:
+- Deploy Google IoT Core
 ### Part 3: 
+- How to configure the IoT Device
+### Part 4: 
 - Overview over the Performance
 
 # Part 1: Overview over the Source code and Concept
 
 ![alt text](https://github.com/michaelfeil/iot_gateway_modbus/blob/master/pngs/mqttclient_modbusrtu_communication.png "Python modules communication workflow")
 
+# Part 2: 
+Deploy a Google IoT Core Instance:
+Follow the [instructions from Google](https://cloud.google.com/iot/docs/how-tos/devices). If you already deployed a Google IoT Core to GCP, you should extract the following information:
 
 
+If you already have a Registry, extract these settings:
+- registry ID (e.g. "reg__id")
+- cloud region (e.g. "europe-west")
+- project_id (e.g."project_id")
+- default topic for telemetry (e.g."events")
+- default topic for device state (e.g. "state")
+- remove CA root or provide your own one. 
 
-# Part 2: How to configure and use this solution:
+- confirm, that MQTT is allowed as protocol!
+- Set Stackdriver logging as needed.
+![alt text](https://github.com/michaelfeil/iot_gateway_modbus/blob/master/pngs/google_iot_core.png "Demo Deployment of registry")
+
+When creating a new device in this registry, please also remember these two for later:
+
+Device Settings:
+- device ID (e.g. "mydeviceid")
+- *public* RSA Key file as .pem, following this [tutorial](https://cloud.google.com/iot/docs/how-tos/credentials/keys). Basically in any unix/linux environment type:
+```bash
+openssl genpkey -algorithm RSA -out rsa_private_key.pem -pkeyopt rsa_keygen_bits:2048
+openssl rsa -in rsa_private_key.pem -pubout -out rsa_public.pem
+```
+
+![alt text](https://github.com/michaelfeil/iot_gateway_modbus/blob/master/pngs/create_device.png "Demo Deployment of device")
+
+
+# Part 3: How to configure the IoT Device:
 
 Use this software:
 1. install libaries from requirements.txt and python 3.7.7
-2. clone "src" folder on computer
-3. provide .pem files under "src/certificates/your_private_key.pem" and "src/certificates/ca_root.pem"
+2. clone "src" folder on computer ```bash git clone https://github.com/michaelfeil/iot_gateway_modbus ```
+3. provide .pem files. 3.1 private key under "src/certificates/your_private_key.pem" and 3.2 CA root as in registry or from [default](https://pki.google.com/roots.pem) "src/certificates/ca_root.pem"
 4. modify "src/setup_files/setup_mqtt.json" according to GCP cloud settings and your key.pem files.
 5. connect modbus to serial port
 6. modify "src/setup_files/setup_modbus.json" according to connected modbus and 
@@ -107,9 +115,9 @@ Preconfigure the setup_mqtt.json: (This part is static, not changed with the Clo
 {
 	"jwt_config": {
 		"algorithm"			:	"RS256",                                    #Which encryption algorithm to use to generate the JWT.
-		"ca_certs"			:	"resources/roots.pem",                      #CA root from https://pki.google.com/roots.pem
+		"ca_certs"			:	"resources/roots.pem",                      #CA root from https://pki.google.com/roots.pem or other CA root
 		"private_key_file"		:	"resources/your_private_key_file.pem",      #Path to private key file.
-		"jwt_expires_minutes"		:	60                                          #Expiration time, in minutes, for JWT tokens. notlonger then 24h, recommended 60mins
+		"jwt_expires_minutes"		:	120                                          #Expiration time, in minutes, for JWT tokens. notlonger then 24h, recommended 60mins
 	},
 	"cloud_destination": {
 		"cloud_region"			:	"us-central1",								#Cloud_region
@@ -118,7 +126,7 @@ Preconfigure the setup_mqtt.json: (This part is static, not changed with the Clo
 		"registry_id"			:	"your_reg_id",							    #IoT Core Registry ID
 		"mqtt_bridge_hostname"		:	"mqtt.googleapis.com",                      #MQTT bridge hostname
 		"mqtt_bridge_port"		:	8883,	                                    #Choices : 8883 or 443.     MQTT bridge port.
-		"keepalive"			:	120                                         #MQTT Heartbeat Frequency in seconds, best practice 60 or 120 seconds,  should not exceed max of 20 minutes
+		"keepalive"			:	240                                         #MQTT Heartbeat Frequency in seconds, best practice 60 or 120 seconds,  should not exceed max of 20 minutes
 	},
 	"paramteter_settings"	: {
 		"puffer_lengh"			:	250,                                        #Now many sensor reads / RTU requests to accumulate before publishing. Best Practice: Size of Slave reads per 10 minutes
@@ -132,17 +140,32 @@ Preconfigure the setup_mqtt.json: (This part is static, not changed with the Clo
 ```
 Details for 8.: Update setup_modbus.json from the GCP IoT Core
 
+To update send the following configuration as "text":
+
+configuration_update_modbus
+
+content_start
+{
+your_valid_json
+}
+content_end
+
+once received, the IoT Device will stick to the Configuration. The IoT Device will report the configuration state once received.
+
+If the configuration message is not vaild, the IoT Device will ignore the message and will set a device state, declaring why the configuration is invalid.
+
 ![alt text](https://github.com/michaelfeil/iot_gateway_modbus/blob/master/pngs/deployment_instructions.png "Deployment from GCP Portal")
 
-mqttclient_modbusrtu_communication.png
-# Part 3: Key Performance Characteristics:
+
+# Part 4: Key Performance Characteristics:
 
 Performance Total RAM Usage:
-- less than 20mb
+- irrelevant for most systems
+- 20mb / e.g. runs on Raspberry Pi1 b+ without any efforts
 
 Performance Modbus-Reader:
 -   When Reading only 1 Register per Slave at a time: 7-9 Slaves per second at 19200 BAUD
 -   When Reading 32-96 Register per Slave at a time: 3-5 Slaves per second,  at 19200 BAUD
 
 Performance MQTT Module:
-    - sending MQTT messages containing only a single modbus read: ~1500 Single Modbus Slave Reads per Minute (>> Maximum read of Modbus Slaves per Minute, ~550  )
+- sending MQTT messages containing with a single value: ~1500 Single values per Minute (bigger than Maximum read of Modbus Slaves per Minute which is ~550  )

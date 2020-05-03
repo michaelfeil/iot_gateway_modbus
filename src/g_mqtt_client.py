@@ -28,6 +28,9 @@ import json
 import gzip, lzma
 import sys
 
+import jwt
+import paho.mqtt.client as mqtt
+
 
 
 """Python Samples for Google IoT Core: https://github.com/GoogleCloudPlatform/python-docs-samples/tree/master/iot/api-client/mqtt_example under Apache License 2.0"""

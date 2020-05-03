@@ -12,11 +12,10 @@ Starts up the Gateway solution"""
 # [START includes]
 import queue
 import sys, os
-
+import time
 
 dirname = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(dirname)                                #only needed if not executing in current directory
-
 
 from g_modbus import Scheduler, Modbus_reader
 from g_mqtt_client import handle_mqtt
@@ -45,10 +44,7 @@ def main():
 
     # endless loop
     while True:
-        
-        user_input = input("\n \t \t Haltering Application - anytime, type 'quit' to stop background application: \n \n")
-        if 'quit' in user_input:
-            break
+        time.sleep(1000)
         
         
     logger.info("Quitting Application")

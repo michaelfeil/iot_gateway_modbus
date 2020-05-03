@@ -1,0 +1,25 @@
+[Unit]
+Description= iot gateway modbus 
+Wants=network-online.target
+After=network.target network-online.target
+
+[Service]
+
+#TODO add correct path
+ExecStart=/usr/bin/python3 /home/pi/iot_gateway_modbus/src/startup_solution.py 
+
+#TODO add username (default raspberrypi: pi)
+User=pi
+
+#restart policy 
+Restart=always
+RestartSec=60
+
+# Disable Python's buffering of STDOUT and STDERR, so that output from the
+# service shows up immediately in systemd's logs
+Environment=PYTHONUNBUFFERED=1
+
+Type=idle
+
+[Install]
+WantedBy=multi-user.target
