@@ -2,11 +2,11 @@
 
 
 ## Scope of this solution:
-	This software is a "IoT Gateway Solution" for Modbus RTU. 
-	
-	The intitial reason for starting this solution was the need for a Gateway for Solar Microgrids.
-	Microgrids installed e.g. by NGOs in Eastern Africa, require a monitoring system. On the one hand to prove project success and other hand to help predictive maintainance. 
-	Using a Linux/Windows computer, e.g. a Raspberry PI,  Modbus RTU sensors can be read and a cost-effective monitoring solution is possible. 
+This software is a "IoT Gateway Solution" for Modbus RTU. 
+
+The intitial reason for starting this solution was the need for a Gateway for Solar Microgrids.
+Microgrids installed e.g. by NGOs in Eastern Africa, require a monitoring system. On the one hand to prove project success and other hand to help predictive maintainance. 
+Using a Linux/Windows computer, e.g. a Raspberry PI,  Modbus RTU sensors can be read and a cost-effective monitoring solution is possible. 
 
 ## As provided this solution offers:
 - Cloud: Google IoT Core
