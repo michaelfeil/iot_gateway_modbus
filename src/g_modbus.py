@@ -21,7 +21,8 @@ import threading
 import random 
 
 #Modbus Test Kit is licensed under LGPL Licence and available at https://pypi.org/project/modbus_tk/
-import modbus_tk
+from modbus_tk import modbus_rtu
+from modbus_tk.exceptions import ModbusError
 #pyserial  is licensed under BSD-3-Clause (BSD Licence) and available at https://pypi.org/project/pyserial/
 import serial
 # [End includes]
@@ -305,7 +306,7 @@ class Modbus_reader(threading.Thread):
             
             logger.debug("connected serial")
             
-            self.master = modbus_tk.modbus_rtu.RtuMaster(
+            self.master = modbus_rtu.RtuMaster(
                     self.serial_port
                 )
             self.master.set_timeout(self.port_config["timeout_connection"]) #max waittime for modbus answers
@@ -355,7 +356,7 @@ class Modbus_reader(threading.Thread):
                 self.master_status = 0 #successfull read, reset to 0
 
                 
-            except modbus_tk.modbus.ModbusError as exc:
+            except ModbusError as exc:
                 self.master_status = self.master_status + 1 #unsuccessfull, increase the status
                 logger.warning("ModbusError in read_modbus_event {}".format(ex))
 
