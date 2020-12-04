@@ -24,7 +24,8 @@
 - For additional instructions for the installation on a Raspberry Pi, follow [01_installation_raspberry_pi.md.](/implementation_raspberry_pi/01_installation_raspberry_pi.md) 
 
  ### Related software:
- - other clouds platforms: this module is designed for the GCP and Google IoT Core, however would also work with other MQTT Bridges. For Azure, a [Modbus Gateway](https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/iot-edge/deploy-modbus-gateway.md)  module exists.
+ - other clouds platforms: this module is designed for the GCP and Google IoT Core, however would also work with other MQTT Bridges.
+ For Azure IoT Edge, a [Modbus Gateway](https://github.com/MicrosoftDocs/azure-docs/blob/master/articles/iot-edge/deploy-modbus-gateway.md)  module exists, [AWS Greengrass](https://docs.aws.amazon.com/greengrass/latest/developerguide/modbus-protocol-adapter-connector.html)
     
  ### About:
  Required Python 3.7.7 libaries that are not included and must be installed separatley with the [requirements.txt](/src/requirements.txt):

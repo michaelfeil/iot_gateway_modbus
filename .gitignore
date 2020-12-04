@@ -2,6 +2,7 @@
 
 .vs/*
 
+*.pem
 **/*.pem
 !**/private_key_demo.pem
 !**/roots_demo.pem

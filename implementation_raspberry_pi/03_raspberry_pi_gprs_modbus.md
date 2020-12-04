@@ -65,3 +65,11 @@ ping google.com
 
 ```
 
+sudo apt-get install wvdial
+
+/etc/ppp/peers/wvdial
+noauth
+name wvdial
+usepeerdns
+defaultroute
+replacedefaultroute
