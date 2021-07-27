@@ -1,14 +1,22 @@
 # IoT_Gateway_Modbus: A MQTT Gateway connecting Modbus RTU with MQTT Bridge of Google IoT Core
 
-
 ## Scope of this solution:
-	This software is a "IoT Gateway Solution" for Modbus RTU. 
-	
-	The intitial reason for starting this solution was the need for a Gateway for Solar Microgrids.
-	Microgrids installed e.g. by NGOs in Eastern Africa, require a monitoring system. On the one hand to prove project success and other hand to help predictive maintainance. 
-	Using a Linux/Windows computer, e.g. a Raspberry PI,  Modbus RTU sensors can be read and a cost-effective monitoring solution is possible. 
+This software is a user-solution of an "IoT Gateway" for Modbus RTU. 
+
+The intitial reason for starting this solution was the need for a Gateway for Solar Microgrids.
+A monitoring system for microgrids can help NGOs and companies e.g. in Eastern Africa, to prove project success and also improves predictive and reliable maintainance. 
+Using a small embedded Linux/Windows computer, e.g. a Raspberry PI, low-cost Modbus RTU sensors can be read and a cost-effective monitoring solution is possible. 
 
 ## As provided this solution offers:
+- Cloud: Google IoT Core
+	- deploying and changing Modbus configuration from the GCP.
+	- Reliable connection using Python Paho MQTT Client
+	- low data footprint in GSM szenarios: compression of multiple sensor measurements using gzip  
+
+- Modbus: Modbus RTU: RS232, RS485 via USB interface.
+	- read sensor values from 5-10 Modbus RTU Slaves per second
+	- schedule individual indivdual for each sensor and slave
+
 - Cloud: Google IoT Core
 	- deploying and changing Modbus configuration from the GCP.
 	- Connection using Paho MQTT Client
@@ -35,3 +43,4 @@
 - "Modbus Test Kit" is licensed under LGPL Licence; available [here](https://pypi.org/project/modbus_tk/)   
 - "pyserial"  is licensed under BSD-3-Clause (BSD Licence); available [here](https://pypi.org/project/pyserial/)   
 
+This code example works with google IoT Core and other MQTT Briges. However, this code it not affiated with products of Google or Google Cloud.
