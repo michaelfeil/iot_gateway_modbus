@@ -1,5 +1,8 @@
 # IoT_Gateway_Modbus: A MQTT Gateway connecting Modbus RTU with MQTT Bridge of Google IoT Core
 
+Note:
+This repository was an exploration with EcoPhi and Engineers without Borders Karlsruhe. Futher investigations are continoued elsewhere, this repository is discontinued.
+
 ## Scope of this solution:
 This software is a user-solution of an "IoT Gateway" for Modbus RTU. 
 
